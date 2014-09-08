@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>Urban-notification Demo</title>
+
+    <script src="../platform/platform.js"></script>
+    <link rel="import" href="urban-notification.html">
+
+    <link rel="import" href="../urban-icons/urban-icons.html">
+
+    <style media="screen">
+        body {
+            font-family: 'Helvetica Neue', Helvetica, 'Lucida Grande', Tahoma, 'Droid Sans', sans-serif;
+            font-size: 15px;
+            color: #3a3a3a;
+            -webkit-font-smoothing: antialiased;
+            padding: 20px;
+        }
+
+        .container {
+            width: 480px;
+        }
+
+        .copy {
+            font-weight: 400;
+            font-size: 14px;
+            color: #333;
+            display:inline-block;
+        }
+
+    </style>
+
+</head>
+<body unresolved>
+
+    <p>An example of using <code>&lt;urban-notification></code>:</p>
+
+    <div class="container">
+
+        <urban-icons></urban-icons>
+
+        <urban-notification id="notification">
+            <div class="copy">
+                <span>This is a notification</span>
+            </div>
+        </urban-notification>
+
+    </div>
+
+</body>
+</html>

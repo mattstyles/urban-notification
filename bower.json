@@ -1,0 +1,20 @@
+{
+  "name": "urban-notification",
+  "version": "0.0.0",
+  "authors": [
+    "Matt Styles <@personalurban>"
+  ],
+  "description": "Animating notification element",
+  "keywords": "notify, notification, urban, polymer, web-components, web-animations",
+  "main": "urban-login.html",
+  "license": "MIT",
+  "homepage": "https://github.com/mattstyles/urban-notification/",
+  "ignore": [
+    "**/.*"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#>=0.4.0 <1.0.0",
+    "polymer-test-tools": "Polymer/polymer-test-tools#~0.3.3",
+    "web-animations-js": "git://github.com/web-animations/web-animations-js.git"
+  }
+}

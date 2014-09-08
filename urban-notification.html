@@ -1,0 +1,31 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+Animatin notification element.
+
+##### Example
+
+    <seed-element></seed-element>
+
+@element seed-element
+@blurb Element providing solution to no problem in particular.
+@status alpha
+@homepage http://polymerlabs.github.io/seed-element
+-->
+<polymer-element name="urban-notification">
+
+    <template>
+
+        <link rel="stylesheet" href="urban-notification.css" />
+
+        <div id="container" class="transparent">
+            <content></content>
+        </div>
+
+    </template>
+
+    <script src="../web-animations-js/web-animations.js"></script>
+    <script src="./anims.js"></script>
+    <script src="./urban-notification.js"></script>
+
+</polymer-element>
