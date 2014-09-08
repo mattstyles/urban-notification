@@ -3,6 +3,8 @@
     display: block;
 }
 
+
+::content .transparent,
 :host .transparent {
     opacity: 0;
 }

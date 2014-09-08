@@ -1,11 +1,23 @@
 (function( root ) {
 
     var ANIM_OUT_SPD = 100,
-        ANIM_IN_SPD = 200;
+        ANIM_IN_SPD = 200,
+        ANIM_DELAY = 50;
 
 
     Polymer( 'urban-notification', {
 
+        /**
+         * Array of elements attached as light DOM content
+         *
+         * @type {Array}
+         */
+        contents: null,
+
+
+        /**
+         * Published properties
+         */
         publish: {
             /**
              * Is the element showing
@@ -16,6 +28,12 @@
         },
 
 
+        /*-----------------------------------------------------------*\
+         *
+         *  Polymer lifecycle events
+         *
+        \*-----------------------------------------------------------*/
+
         /**
          * Fired when Polymer has got the element ready
          */
@@ -25,8 +43,24 @@
             this.bindAll( this );
         },
 
+
+        /**
+         * Light DOM should be ready by now so grab all the relevant child nodes
+         */
         attached: function() {
-            console.log( 'attched');
+            this.contents = [];
+
+            // Iterate over each content tag
+            Array.prototype.forEach.call( this.$.container.querySelectorAll( 'content' ), function( content ) {
+                // Iterate over each root node distributed into content
+                Array.prototype.forEach.call( content.getDistributedNodes(), function( el ) {
+                    // Only keep track of elements.
+                    if ( el.nodeType === 1 ) {
+                        el.classList.add( 'transparent' );
+                        this.contents.push( el );
+                    }
+                }, this );
+            }, this );
         },
 
 
@@ -60,7 +94,7 @@
 
 
         /**
-         * Shows the whole login element, transitions in the login button
+         * Shows the whole element and starts the 'in' animation
          *
          * @param animate {Boolean} determines if the animation fires or not
          * @event - emits a 'show' event
@@ -70,13 +104,20 @@
 
             this.$.container.classList.remove( 'transparent' );
 
-            var anim = document.timeline.play( new Animation(
-                this.children[ 0 ],
-                frames.show, {
-                    duration: ANIM_IN_SPD,
-                    fill: 'forwards'
-                }
-            ));
+            var anims = [];
+            this.contents.forEach( function( el, index ) {
+                anims.push( new Animation(
+                    el,
+                    frames.show, {
+                        duration: ANIM_IN_SPD,
+                        delay: ANIM_DELAY * index,
+                        fill: 'forwards'
+                    }
+                ));
+            });
+
+            document.timeline.play( new AnimationGroup( anims ) );
+
 
             this._showing = true;
             this.fire( 'show' );
@@ -84,21 +125,29 @@
 
 
         /**
-         * Hides the whole login element, after transitioning out the login button
+         * Hides the whole element and starts the 'out' animation
          *
          * @event - emits a 'hide' event
          */
         hide: function() {
             if ( !this._showing ) return;
 
-            var anim = document.timeline.play( new Animation(
-                this.children[ 0 ],
-                frames.hide, {
-                    duration: ANIM_OUT_SPD,
-                    fill: 'forwards'
-                }
-            ));
+            var anims = [];
+            this.contents.forEach( function( el, index ) {
+                anims.push( new Animation(
+                    el,
+                    frames.hide, {
+                        duration: ANIM_OUT_SPD,
+                        delay: ANIM_DELAY * index,
+                        fill: 'forwards'
+                    }
+                ));
+            });
 
+            var anim = document.timeline.play( new AnimationGroup( anims ) );
+
+
+            // Last to start will be last to finish so listen for the last one
             anim.onfinish = function( event ) {
                 this.$.container.classList.add( 'transparent' );
                 this._showing = false;
@@ -117,6 +166,8 @@
 
         /**
          * Simple, dirty bindAll implementation
+         *
+         * @param ctx {Object} the context to bind `this` to
          */
         bindAll: function( ctx ) {
             for ( method in this ) {
