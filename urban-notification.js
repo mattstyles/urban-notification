@@ -118,11 +118,14 @@
                 ));
             });
 
-            document.timeline.play( new AnimationGroup( anims ) );
+            var anim = document.timeline.play( new AnimationGroup( anims ) );
 
+            anim.onfinish = function( event ) {
+                this.fire( 'showEnd' );
+            }.bind( this );
 
             this._showing = true;
-            this.fire( 'show' );
+            this.fire( 'showStart' );
         },
 
 
@@ -148,13 +151,13 @@
             });
 
             var anim = document.timeline.play( new AnimationGroup( anims ) );
-
+            this.fire( 'hideStart' );
 
             // Last to start will be last to finish so listen for the last one
             anim.onfinish = function( event ) {
                 this.$.container.classList.add( 'transparent' );
                 this._showing = false;
-                this.fire( 'hide' );
+                this.fire( 'hideEnd' );
             }.bind( this );
         },
 
