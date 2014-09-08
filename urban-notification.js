@@ -23,7 +23,8 @@
             /**
              * Is the element showing
              *
-             * @type {Boolean}
+             * @property _showing
+             * @type boolean
              */
             _showing: false
         },
@@ -140,7 +141,7 @@
             var anims = [];
             this.contents.forEach( function( el, index ) {
                 anims.push( new Animation(
-                    el,
+                    this.contents[ this.contents.length - index - 1 ],
                     frames.hide, {
                         duration: ANIM_OUT_SPD,
                         // delay: ANIM_DELAY * index,
@@ -148,7 +149,7 @@
                         fill: 'forwards'
                     }
                 ));
-            });
+            }, this );
 
             var anim = document.timeline.play( new AnimationGroup( anims ) );
             this.fire( 'hideStart' );
