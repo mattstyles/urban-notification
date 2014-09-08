@@ -2,7 +2,8 @@
 
     var ANIM_OUT_SPD = 100,
         ANIM_IN_SPD = 200,
-        ANIM_DELAY = 50;
+        ANIM_DELAY = 50,
+        ANIM_DELAY_MAG = .8;
 
 
     Polymer( 'urban-notification', {
@@ -110,7 +111,8 @@
                     el,
                     frames.show, {
                         duration: ANIM_IN_SPD,
-                        delay: ANIM_DELAY * index,
+                        // delay: ANIM_DELAY * index,
+                        delay: ANIM_DELAY * ( Math.sqrt( index ) * ANIM_DELAY_MAG ),
                         fill: 'forwards'
                     }
                 ));
@@ -138,7 +140,8 @@
                     el,
                     frames.hide, {
                         duration: ANIM_OUT_SPD,
-                        delay: ANIM_DELAY * index,
+                        // delay: ANIM_DELAY * index,
+                        delay: ANIM_DELAY * ( Math.sqrt( index ) * ANIM_DELAY_MAG ),
                         fill: 'forwards'
                     }
                 ));

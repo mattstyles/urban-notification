@@ -20,7 +20,8 @@
         }
 
         .container {
-            width: 480px;
+            width: 100%;
+            max-width: 520px;
         }
 
         h3 {
@@ -71,6 +72,10 @@
             top: -1px;
         }
 
+        #multi > span {
+            display:inline-block;
+        }
+
     </style>
 
 </head>
@@ -96,11 +101,7 @@
 
         <h3>Notification with multiple content roots <span><a data-target="#multi" data-action="show">show</a>|<a data-target="#multi" data-action="hide">hide</a></span></h3>
         <urban-notification id="multi">
-            <div class="wrap">
-                <core-icon icon="urban:attention"></core-icon><span>This is a notification</span>
-            </div></br>
-            <h3 class="inline">Notification Title</h3></br>
-            <p class="inline">Notification details</p></br>
+            <span>N</span><span>o</span><span>t</span><span>i</span><span>f</span><span>i</span><span>c</span><span>a</span><span>t</span><span>i</span><span>o</span><span>n</span>
         </urban-notification>
 
     </div>
