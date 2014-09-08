@@ -1,12 +1,12 @@
 {
   "name": "urban-notification",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "authors": [
     "Matt Styles <@personalurban>"
   ],
   "description": "Animating notification element",
   "keywords": "notify, notification, urban, polymer, web-components, web-animations",
-  "main": "urban-login.html",
+  "main": "urban-notification.html",
   "license": "MIT",
   "homepage": "https://github.com/mattstyles/urban-notification/",
   "ignore": [
