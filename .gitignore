@@ -3,6 +3,4 @@
 *.md
 .bowerrc
 bower.json
-demo.html
 vulcanize.json
-
