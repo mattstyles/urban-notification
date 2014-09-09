@@ -1,9 +1,8 @@
 .DS_Store
-urban-notification.*
-anims.*
 /tests/
 *.md
 .bowerrc
 bower.json
 demo.html
 vulcanize.json
+
