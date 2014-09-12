@@ -36,13 +36,12 @@
          *
         \*-----------------------------------------------------------*/
 
+
         /**
          * Fired when Polymer has got the element ready
          */
         ready: function() {
             this.bindAll( this );
-
-            this.onMutation( this, this.updateContent );
         },
 
 
@@ -50,7 +49,8 @@
          * Light DOM should be ready by now so grab all the relevant child nodes
          */
         attached: function() {
-            // This is replaced by an observer, but keep this hook in for now incase the initial update happens too quickly
+            // This intially populated the contents cache and sets up an observer
+            this.updateContent();
         },
 
 
