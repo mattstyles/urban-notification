@@ -50,19 +50,7 @@
          * Light DOM should be ready by now so grab all the relevant child nodes
          */
         attached: function() {
-            this.contents = [];
-
-            // Iterate over each content tag
-            Array.prototype.forEach.call( this.$.container.querySelectorAll( 'content' ), function( content ) {
-                // Iterate over each root node distributed into content
-                Array.prototype.forEach.call( content.getDistributedNodes(), function( el ) {
-                    // Only keep track of elements.
-                    if ( el.nodeType === 1 ) {
-                        el.classList.add( 'transparent' );
-                        this.contents.push( el );
-                    }
-                }, this );
-            }, this );
+            this.updateContent();
         },
 
 
@@ -186,7 +174,29 @@
                     }
                 }
             }
+        },
+
+
+        /**
+         * Exposes a method for updating the cached content array.
+         * Useful if the content changes during the lifetime of the element.
+         */
+        updateContent: function() {
+            this.contents = [];
+
+            // Iterate over each content tag
+            Array.prototype.forEach.call( this.$.container.querySelectorAll( 'content' ), function( content ) {
+                // Iterate over each root node distributed into content
+                Array.prototype.forEach.call( content.getDistributedNodes(), function( el ) {
+                    // Only keep track of elements.
+                    if ( el.nodeType === 1 ) {
+                        el.classList.add( 'transparent' );
+                        this.contents.push( el );
+                    }
+                }, this );
+            }, this );
         }
+
 
     });
 
