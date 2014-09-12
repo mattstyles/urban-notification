@@ -50,7 +50,7 @@
          * Light DOM should be ready by now so grab all the relevant child nodes
          */
         attached: function() {
-            this.updateContent();
+            // This is replaced by an observer, but keep this hook in for now incase the initial update happens too quickly
         },
 
 
@@ -63,6 +63,10 @@
         eventDelegates: {
             down: 'downAction',
             up: 'upAction'
+        },
+
+        observe: {
+            '$.content': 'updateContent'
         },
 
         /**
@@ -180,6 +184,8 @@
         /**
          * Exposes a method for updating the cached content array.
          * Useful if the content changes during the lifetime of the element.
+         *
+         * TODO: to save having to manually call this function can be attached to an observer to be fired whenever the content changes?
          */
         updateContent: function() {
             this.contents = [];
