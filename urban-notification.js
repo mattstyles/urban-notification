@@ -40,9 +40,9 @@
          * Fired when Polymer has got the element ready
          */
         ready: function() {
-
-            // Simple dirty bindAll method so any methods invoked as a callback maintain scope to this object
             this.bindAll( this );
+
+            this.onMutation( this, this.updateContent );
         },
 
 
@@ -63,10 +63,6 @@
         eventDelegates: {
             down: 'downAction',
             up: 'upAction'
-        },
-
-        observe: {
-            '$.content': 'updateContent'
         },
 
         /**
@@ -104,7 +100,6 @@
                     el,
                     frames.show, {
                         duration: ANIM_IN_SPD,
-                        // delay: ANIM_DELAY * index,
                         delay: ANIM_DELAY * ( Math.sqrt( index ) * ANIM_DELAY_MAG ),
                         fill: 'forwards'
                     }
@@ -136,7 +131,6 @@
                     this.contents[ this.contents.length - index - 1 ],
                     frames.hide, {
                         duration: ANIM_OUT_SPD,
-                        // delay: ANIM_DELAY * index,
                         delay: ANIM_DELAY * ( Math.sqrt( index ) * ANIM_DELAY_MAG ),
                         fill: 'forwards'
                     }
@@ -174,7 +168,7 @@
                     try {
                         this[ method ] = this[ method ].bind( ctx );
                     } catch( err ) {
-                        console.log( 'urban-login:: method binding error', method, err );
+                        console.log( this.element.name + '::', 'method binding error\n', method, err );
                     }
                 }
             }
@@ -182,12 +176,10 @@
 
 
         /**
-         * Exposes a method for updating the cached content array.
-         * Useful if the content changes during the lifetime of the element.
-         *
-         * TODO: to save having to manually call this function can be attached to an observer to be fired whenever the content changes?
+         * Fired whenever the content of the element changes.
+         * Ensures that the content cache is synced.
          */
-        updateContent: function() {
+        updateContent: function( observer, mutations ) {
             this.contents = [];
 
             // Iterate over each content tag
@@ -201,6 +193,11 @@
                     }
                 }, this );
             }, this );
+
+            this.fire( 'contentUpdated' );
+
+            // Reattach
+            this.onMutation( this, this.updateContent );
         }
 
 
