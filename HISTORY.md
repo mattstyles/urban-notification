@@ -1,3 +1,7 @@
+## 0.3.0 - 14.09.2014
+
+* _add_ - smooth out delayed animations
+
 ## 0.2.0 - 12.09.2014
 
 * _add_ - content observer
