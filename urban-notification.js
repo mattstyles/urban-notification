@@ -2,8 +2,7 @@
 
     var ANIM_OUT_SPD = 100,
         ANIM_IN_SPD = 200,
-        ANIM_DELAY = 50,
-        ANIM_DELAY_MAG = .8;
+        ANIM_DELAY_MAG = 50;
 
 
     Polymer( 'urban-notification', {
@@ -14,6 +13,14 @@
          * @type {Array}
          */
         contents: null,
+
+
+        /**
+         * The cached total length of the animation, usually this will be determined by the number of content roots to be animated
+         *
+         * @type {Integer}
+         */
+        animationDuration: ANIM_DELAY_MAG,
 
 
         /**
@@ -95,16 +102,17 @@
             this.$.container.classList.remove( 'transparent' );
 
             var anims = [];
+
             this.contents.forEach( function( el, index ) {
                 anims.push( new Animation(
                     el,
                     frames.show, {
                         duration: ANIM_IN_SPD,
-                        delay: ANIM_DELAY * ( Math.sqrt( index ) * ANIM_DELAY_MAG ),
+                        delay: this.$.bezier.calc( ( index + 1 ) / this.contents.length ) * this.animationDuration,
                         fill: 'forwards'
                     }
                 ));
-            });
+            }, this );
 
             var anim = document.timeline.play( new AnimationGroup( anims ) );
 
@@ -131,7 +139,7 @@
                     this.contents[ this.contents.length - index - 1 ],
                     frames.hide, {
                         duration: ANIM_OUT_SPD,
-                        delay: ANIM_DELAY * ( Math.sqrt( index ) * ANIM_DELAY_MAG ),
+                        delay: this.$.bezier.calc( ( index + 1 ) / this.contents.length ) * this.animationDuration,
                         fill: 'forwards'
                     }
                 ));
@@ -195,6 +203,9 @@
             }, this );
 
             this.fire( 'contentUpdated' );
+
+            // Update the cached animation duration based on the number of content roots
+            this.animationDuration = this.contents.length * ANIM_DELAY_MAG;
 
             // Reattach
             this.onMutation( this, this.updateContent );
