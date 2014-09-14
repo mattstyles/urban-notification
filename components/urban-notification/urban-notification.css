@@ -1,12 +1,13 @@
 :host {
     position: relative;
-    display: block;
+    display: inline-block;
 }
 
 
 ::content .transparent,
 :host .transparent {
     opacity: 0;
+    pointer-events: none;
 }
 
 :host .hidden {
