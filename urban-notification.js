@@ -49,6 +49,8 @@
          */
         ready: function() {
             this.bindAll( this );
+
+            this.createAnimationFrames();
         },
 
 

@@ -1,3 +1,7 @@
+## 0.3.1 - 15.09.2014
+
+* _fix_ - remove anims leaking to global
+
 ## 0.3.0 - 14.09.2014
 
 * _add_ - smooth out delayed animations
