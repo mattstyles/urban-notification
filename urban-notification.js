@@ -106,7 +106,7 @@
             this.contents.forEach( function( el, index ) {
                 anims.push( new Animation(
                     el,
-                    frames.show, {
+                    this.frames.show, {
                         duration: ANIM_IN_SPD,
                         delay: this.$.bezier.calc( ( index + 1 ) / this.contents.length ) * this.animationDuration,
                         fill: 'forwards'
@@ -137,7 +137,7 @@
             this.contents.forEach( function( el, index ) {
                 anims.push( new Animation(
                     this.contents[ this.contents.length - index - 1 ],
-                    frames.hide, {
+                    this.frames.hide, {
                         duration: ANIM_OUT_SPD,
                         delay: this.$.bezier.calc( ( index + 1 ) / this.contents.length ) * this.animationDuration,
                         fill: 'forwards'
@@ -209,6 +209,24 @@
 
             // Reattach
             this.onMutation( this, this.updateContent );
+        },
+
+
+        /**
+         * Creates the animation frames
+         */
+        createAnimationFrames: function() {
+            this.frames = {
+                show: new KeyframeEffect([
+                    { opacity: '0', transform: 'scale(.8,.8) translateY( 20 )' },
+                    { opacity: '1', transform: 'scale(1,1), translateY( 0 )' }
+                ]),
+
+                hide: new KeyframeEffect([
+                    { opacity: '1', transform: 'scale(1,1), translateY( 0 )' },
+                    { opacity: '0', transform: 'scale(.8,.8) translateY( -10 )' }
+                ])
+            };
         }
 
 
