@@ -48,7 +48,7 @@
          * Fired when Polymer has got the element ready
          */
         ready: function() {
-            this.bindAll( this );
+            this.super();
 
             this.createAnimationFrames();
         },
@@ -165,25 +165,6 @@
          *  Helpers
          *
         \*-----------------------------------------------------------*/
-
-
-        /**
-         * Simple, dirty bindAll implementation
-         *
-         * @param ctx {Object} the context to bind `this` to
-         */
-        bindAll: function( ctx ) {
-            for ( method in this ) {
-                if ( typeof this[ method ] === 'function' && !this.hasOwnProperty( method ) ) {
-                    try {
-                        this[ method ] = this[ method ].bind( ctx );
-                    } catch( err ) {
-                        console.log( this.element.name + '::', 'method binding error\n', method, err );
-                    }
-                }
-            }
-        },
-
 
         /**
          * Fired whenever the content of the element changes.
